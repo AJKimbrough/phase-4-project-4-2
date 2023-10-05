@@ -21,7 +21,7 @@ class Product(Resource):
     def get(self):
         products = [product.to_dict() for product in Product.query.all()]
         return products, 200
-api.add_resource(Product, '/product')
+api.add_resource(Product, '/products')
 
 
 if __name__ == '__main__':
