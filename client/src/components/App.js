@@ -68,7 +68,7 @@ function App() {
         <Switch>
           <Route path="/" exact>
             {/* Home Page */}
-            <Home products={products} />
+            <Home products={products} addToCart={addToCart} />
           </Route>
           <Route path="/shop">
             <Product addToCart={addToCart} openModal={openModal} isOpen={isOpen} />

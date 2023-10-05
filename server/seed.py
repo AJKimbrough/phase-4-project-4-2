@@ -187,45 +187,45 @@ def create_products():
         db.session.commit()
 
 
-def create_users(num_users):
-        users = []
-        for _ in range(num_users):
-            user = User(
-                username=fake.user_name(),
-                email=fake.email(),
-                password=fake.password(),
-            )
-            users.append(user)
-        db.session.bulk_save_objects(users)
-        db.session.commit()
+# def create_users(num_users):
+#         users = []
+#         for _ in range(num_users):
+#             user = User(
+#                 username=fake.user_name(),
+#                 email=fake.email(),
+#                 password=fake.password(),
+#             )
+#             users.append(user)
+#         db.session.bulk_save_objects(users)
+#         db.session.commit()
 
-def create_carts(num_carts):
-    carts = []
-    for _ in range(num_carts):
-        user_id = fake.random_int(min=1, max=User.query.count())
-        cart = ShoppingCart(user_id=user_id)
+# def create_carts(num_carts):
+#     carts = []
+#     for _ in range(num_carts):
+#         user_id = fake.random_int(min=1, max=User.query.count())
+#         cart = ShoppingCart(user_id=user_id)
         
-        num_products_in_cart = fake.random_int(min=1, max=10)
-        cart.products = Product.query.order_by(func.random()).limit(num_products_in_cart).all()
+#         num_products_in_cart = fake.random_int(min=1, max=10)
+#         cart.products = Product.query.order_by(func.random()).limit(num_products_in_cart).all()
         
-        carts.append(cart)
+#         carts.append(cart)
     
-    db.session.add_all(carts)
-    db.session.commit()
+#     db.session.add_all(carts)
+#     db.session.commit()
 
-def create_orders(num_orders):
-    orders = []
-    for _ in range(num_orders):
-        user_id = fake.random_int(min=1, max=User.query.count())
-        order = Order(user_id=user_id)
+# def create_orders(num_orders):
+#     orders = []
+#     for _ in range(num_orders):
+#         user_id = fake.random_int(min=1, max=User.query.count())
+#         order = Order(user_id=user_id)
         
-        num_products_in_order = fake.random_int(min=1, max=10)
-        order.products = Product.query.order_by(func.random()).limit(num_products_in_order).all()
+#         num_products_in_order = fake.random_int(min=1, max=10)
+#         order.products = Product.query.order_by(func.random()).limit(num_products_in_order).all()
         
-        orders.append(order)
+#         orders.append(order)
     
-    db.session.add_all(orders)
-    db.session.commit()
+#     db.session.add_all(orders)
+#     db.session.commit()
 
 # def delete():
 #     Product.query.delete()
@@ -240,12 +240,14 @@ if __name__ == '__main__':
     num_fake_orders = 10
     
     with app.app_context():
-        #delete()
-
+        # Create products
         create_products()
-        create_users(num_fake_users)
-        create_carts(num_fake_carts)
-        create_orders(num_fake_orders)
 
+        # # Create users first
+        # create_users(num_fake_users)
+
+        # # Now, create shopping carts and orders
+        # create_carts(num_fake_carts)
+        # create_orders(num_fake_orders)
 
     print("Done")
