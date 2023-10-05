@@ -17,26 +17,40 @@ from models import Product, User, ShoppingCart, Order
 def index():
     return '<h1>Project Server</h1>'
 
-@app.route('/products')
+@app.route('/products', methods=['GET'])
 def products():
+    if request.method == 'GET':
+        products = Product.query.all()
 
-    products = []
-    for product in Product.query.all():
-        product_dict = {
-            "name": product.name,
-            "description": product.description,
-            "price": product.price,
-            "image_url": product.image_url,
-        }
-        products.append(product_dict)
-
-    response = make_response(
-        jsonify(products),
-        200,
-        {"Content-Type": "application/json"}
+        return make_response(
+            jsonify([product.to_dict() for product in products]),
+            200,
+        )
+    return make_response(
+        jsonify({"text": "Method Not Allowed"}),
+        405,
     )
 
-    return response
+# @app.route('/products')
+# def products():
+
+#     products = []
+#     for product in Product.query.all():
+#         product_dict = {
+#             "name": product.name,
+#             "description": product.description,
+#             "price": product.price,
+#             "image_url": product.image_url,
+#         }
+#         products.append(product_dict)
+
+#     response = make_response(
+#         jsonify(products),
+#         200,
+#         {"Content-Type": "application/json"}
+#     )
+
+#     return response
 
 
 # class Product(Resource):

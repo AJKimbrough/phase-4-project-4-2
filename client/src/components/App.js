@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import NavBar from "./NavBar";
@@ -7,12 +7,14 @@ import ShoppingCart from "./ShoppingCart";
 import Login from "./Login";
 import Register from "./Register";
 import Profile from "./Profile";
+import Home from "./Home";
 
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [cart, setCart] = useState([])
   const [isOpen, setIsOpen] = useState(false)
+  const [products, setProducts] = useState([])
 
   const handleLogin = () => {
     setIsLoggedIn(true)
@@ -51,6 +53,14 @@ function App() {
     setIsOpen(true)
   }
 
+  useEffect(() => {
+    fetch("/products")
+    .then((r) => r.json())
+    .then((data) => {
+      setProducts(data)
+    })
+}, [])
+
   return (
     <Router>
       <div className="App">
@@ -58,6 +68,7 @@ function App() {
         <Switch>
           <Route path="/" exact>
             {/* Home Page */}
+            <Home products={products} />
           </Route>
           <Route path="/shop">
             <Product addToCart={addToCart} openModal={openModal} isOpen={isOpen} />
