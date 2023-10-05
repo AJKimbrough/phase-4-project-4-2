@@ -19,20 +19,8 @@ from models import db, Product, User, ShoppingCart, Order
 #         print("Starting seed...")
 #         # Seed code goes here!
 
-#from flask import Flask
-#from app import app  # Import your Flask app and SQLAlchemy db instance
-#from faker import Faker
-
 # Initialize Faker
 fake = Faker()
-
-# Create an application context
-# app = Flask(__name__)
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'  # Adjust the database URI as needed
-# db.init_app(app)
-
-
-
 
 
 def create_products():
@@ -247,7 +235,6 @@ def create_orders(num_orders):
 #     db.session.commit()
 
 if __name__ == '__main__':
-        #num_fake_products = 50
     num_fake_users = 20
     num_fake_carts = 30
     num_fake_orders = 10
@@ -261,4 +248,4 @@ if __name__ == '__main__':
         create_orders(num_fake_orders)
 
 
-    print("Dummy data has been generated.")
+    print("Done")
