@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { BrowserRouter as Router } from "react-router-dom";
 import NavBar from "./NavBar";
 import Product from "./Product";
@@ -24,31 +24,6 @@ function App() {
     setIsLoggedIn(false)
   }
 
-  const addToCart = (product) => {
-    const existingProduct = cart.find((item) => item.id === product.id)
-
-    if(existingProduct) {
-        const updatedCart = cart.map((item) => {
-            if(item.id === product.id) {
-                return {
-                    ...item,
-                    quantity: item.quantity + 1
-                }
-            }
-            return item
-        })
-        setCart(updatedCart)
-    }
-    else {
-        setCart([...cart, {...product, quantity: 1 }])
-    }
-}
-
-  const removeFromCart = (productID) => {
-    const updatedCart = cart.filter((item) => item.id !== productID)
-    setCart(updatedCart)
-  }
-
   const openModal = () => {
     setIsOpen(true)
   }
@@ -67,14 +42,13 @@ function App() {
         <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
         <Switch>
           <Route path="/" exact>
-            {/* Home Page */}
-            <Home addToCart={addToCart} />
+            <Home />
           </Route>
           <Route path="/products">
-            <Product addToCart={addToCart} openModal={openModal} isOpen={isOpen} product={products} />
+            <Product openModal={openModal} isOpen={isOpen} product={products} />
           </Route>
           <Route path="/cart">
-            <ShoppingCart cartItems={cart} removeFromCart={removeFromCart} setCart={setCart} product={products} />
+            <ShoppingCart cartItems={cart} setCart={setCart} product={products} />
           </Route>
           <Route path="/login">
             <Login handleLogin={handleLogin} />
@@ -82,13 +56,13 @@ function App() {
           <Route path="/register">
             <Register />
           </Route>
-          <Route path="/profile">
-            {isLoggedIn ? (
-              <Profile />
-            ) : (
-              <Route path="/login" />
-            )}
-          </Route>
+          {isLoggedIn ? (
+            <Route path="/profile" />,
+            <Profile />
+        ) : (
+            <Redirect to="/login" />,
+            <Login handleLogin={handleLogin} />
+        )}
         </Switch>
       </div>
     </Router>

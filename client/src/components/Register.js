@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Register({ handleRegister }) {
+function Register() {
     const [formData, setFormData] = useState({
         username: '',
         email: '',
@@ -8,12 +8,35 @@ function Register({ handleRegister }) {
         confirmPassword: '',
     })
 
+const handleRegister = async (formData) => {
+    try {
+        const response = await 
+        fetch('/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        })
+
+        if(response.ok) {
+            alert('Registration successful!')
+        }
+        else {
+            const data = await response.json()
+            alert(`Registration failed: ${data.message}`)
+        }
+    }
+    catch(error) {
+        console.error('Registration error:', error)
+    }
+}
+
 const handleChange = (e) => {
-    const { name, value } = e.target
     setFormData({
-        ...formData, 
-        [name]: value,
-    })
+        ...formData,
+        [e.target.name]: e.target.value,
+    });
 }
 
 const handleSubmit = (e) => {

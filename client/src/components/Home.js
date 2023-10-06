@@ -8,7 +8,6 @@ function Home({ products, openModal }) {
     return (
         <div className="title page">
             <h1>Welcome to my Marketplace!</h1>
-            
         </div>
     )
 }

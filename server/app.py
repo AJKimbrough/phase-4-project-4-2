@@ -5,6 +5,7 @@
 # Remote library imports
 from flask import request, jsonify, make_response
 from flask_restful import Resource
+from sqlalchemy import text
 
 
 # Local imports
@@ -31,6 +32,46 @@ def products():
         jsonify({"text": "Method Not Allowed"}),
         405,
     )
+
+class Register(Resource):
+
+    def post(self):
+        
+        new_user = User(
+            username=request.form['username'],
+            email=request.form['email'],
+            password=request.form['password']
+        )
+
+        db.session.add(new_user)
+        db.session.commit()
+
+        response_dict = new_user.to_dict()
+
+        response = make_response(
+            response_dict,
+            201,
+        )
+        return response
+    
+api.add_resource(Register, '/register')
+
+# @app.route('/register', methods=['POST'])
+# def register():
+#     data = request.get_json()
+
+#     username = data.get('username')
+#     email = data.get('email')
+#     password = data.get('password')
+    
+#     sql = text('INSERT INTO "user" (username, email, password) VALUES (:username, :email, :password)')
+#     db.session.execute(sql, {'username': username, 'email': email, 'password': password})
+#     db.session.commit()
+
+#     response_data ={
+#         'message': 'Registration successful' 
+#     }
+#     return jsonify(response_data), 200
 
 class Login(Resource):
 
