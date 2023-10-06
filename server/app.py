@@ -32,20 +32,20 @@ def products():
         405,
     )
 
-# class Login(Resource):
+class Login(Resource):
 
-#     def post(self):
+    def post(self):
 
-#         username = request.get_json()['username']
-#         user = User.query.filter(User.username == username)
-#         password = request.get_json()['password']
+        username = request.get_json()['username']
+        user = User.query.filter(User.username == username)
+        password = request.get_json()['password']
 
-#         if user.authenticate(password):
-#             db.session['user_id'] = user.id
-#             return user.to_dict(), 200
+        if user.authenticate(password):
+            db.session['user_id'] = user.id
+            return user.to_dict(), 200
         
-#         return {'error': 'Invalid username or password'}, 401
-# api.add_resource(Login, '/login', endpoint='login')
+        return {'error': 'Invalid username or password'}, 401
+api.add_resource(Login, '/login', endpoint='login')
     
 
 # @app.route('/products')

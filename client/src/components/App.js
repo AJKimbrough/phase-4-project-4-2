@@ -68,13 +68,13 @@ function App() {
         <Switch>
           <Route path="/" exact>
             {/* Home Page */}
-            <Home products={products} addToCart={addToCart} />
+            <Home addToCart={addToCart} />
           </Route>
-          <Route path="/shop">
-            <Product addToCart={addToCart} openModal={openModal} isOpen={isOpen} />
+          <Route path="/products">
+            <Product addToCart={addToCart} openModal={openModal} isOpen={isOpen} product={products} />
           </Route>
           <Route path="/cart">
-            <ShoppingCart cartItems={cart} removeFromCart={removeFromCart} />
+            <ShoppingCart cartItems={cart} removeFromCart={removeFromCart} setCart={setCart} product={products} />
           </Route>
           <Route path="/login">
             <Login handleLogin={handleLogin} />
