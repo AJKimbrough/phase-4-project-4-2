@@ -13,9 +13,12 @@ from flask_bcrypt import Bcrypt
 
 # Instantiate app, set attributes
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://nft_marketplace_963o_user:3Vcv03YVzDLCGXUiUBe9k4coZm8RyswJ@dpg-ckfhid7s0fgc73cn2gq0-a.oregon-postgres.render.com/nft_marketplace_963o'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db' #'postgresql://nft_marketplace_963o_user:3Vcv03YVzDLCGXUiUBe9k4coZm8RyswJ@dpg-ckfhid7s0fgc73cn2gq0-a.oregon-postgres.render.com/nft_marketplace_963o'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
+
+app.config['SECRET_KEY'] = b'\x14\xc5\xd0\x02\xfe\xc0\x16m#\xbd\x07\xeb<\x17\xe6\xcc'
+
 
 # Define metadata, instantiate db
 metadata = MetaData(naming_convention={

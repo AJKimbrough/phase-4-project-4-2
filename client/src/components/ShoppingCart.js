@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Modal from "./Modal";
 
-function ShoppingCart({ cartItems, openModal, isLoggedIn, handleLogout }) {
+function ShoppingCart({ cartItems, openModal, isLoggedIn, handleLogout, user }) {
     const [cart, setCart] = useState(cartItems)
     console.log(cartItems)
 
@@ -31,33 +31,11 @@ function ShoppingCart({ cartItems, openModal, isLoggedIn, handleLogout }) {
         </>
     ))
 
+    console.log(isLoggedIn)
+
     return (
         <div className='cart'>
-            <h2>Login or Register to see cart!</h2>
-            <ul>
-            {isLoggedIn ? (
-                    <>
-                        <li className='navbar-item'>
-                            <NavLink to="/cart">Cart</NavLink>
-                        </li>
-                        <li className='navbar-item'>
-                            <NavLink to="/profile">Profile</NavLink>
-                        </li>
-                        <li className='navbar-item'>
-                            <button className='logout-button' onClick={handleLogout}>Logout</button>
-                        </li>
-                    </>
-                ) : (
-                    <>
-                        <li className='navbar-item'>
-                            <NavLink to='/login'>Login</NavLink>
-                        </li>
-                        <li className='navbar-item'>
-                            <NavLink to='/register'>Register</NavLink>
-                        </li>
-                    </>
-                )} 
-            </ul>
+            <h2>Cart</h2>
             {product}
             {/* <ul>
                  /*{cartItems.map((item) => (

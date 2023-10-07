@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom"
 
 function Login({ handleLogin }) {
     const [formData, setFormData] = useState({
@@ -65,6 +66,7 @@ function Login({ handleLogin }) {
                     onChange={handleChange}
                     required
                 />
+                <p>Discover a better currency! <Link to="/register">Step into the future.</Link></p>
                 </div>
                 <button type="submit">Login</button>
             </form>

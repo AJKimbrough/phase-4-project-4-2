@@ -15,16 +15,6 @@ function NavBar({ isLoggedIn, handleLogout }){
     return(
         <div className='navBar'>
             <NavLink
-                to="/"
-                exact
-                style={linkStyle}
-                activeStyle={{
-                    background:"darkblue",
-                }}
-            >
-                AJs NFT Marketplace
-            </NavLink>
-            <NavLink
                 to="/products"
                 exact
                 style={linkStyle}

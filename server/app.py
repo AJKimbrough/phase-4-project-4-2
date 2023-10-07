@@ -3,7 +3,7 @@
 # Standard library imports
 
 # Remote library imports
-from flask import request, jsonify, make_response
+from flask import request, jsonify, make_response, session
 from flask_restful import Resource
 from sqlalchemy import text
 
@@ -38,10 +38,11 @@ class Register(Resource):
     def post(self):
         
         new_user = User(
-            username=request.form['username'],
-            email=request.form['email'],
-            password=request.form['password']
+            username=request.json['username'],
+            email=request.json['email'],
+
         )
+        new_user.password_hash = request.json['password']
 
         db.session.add(new_user)
         db.session.commit()
@@ -54,70 +55,41 @@ class Register(Resource):
         )
         return response
     
-api.add_resource(Register, '/register')
+api.add_resource(Register, '/register', endpoint="")
 
-# @app.route('/register', methods=['POST'])
-# def register():
-#     data = request.get_json()
-
-#     username = data.get('username')
-#     email = data.get('email')
-#     password = data.get('password')
-    
-#     sql = text('INSERT INTO "user" (username, email, password) VALUES (:username, :email, :password)')
-#     db.session.execute(sql, {'username': username, 'email': email, 'password': password})
-#     db.session.commit()
-
-#     response_data ={
-#         'message': 'Registration successful' 
-#     }
-#     return jsonify(response_data), 200
 
 class Login(Resource):
 
     def post(self):
 
-        username = request.get_json()['username']
-        user = User.query.filter(User.username == username)
+        email = request.get_json()['email']
+        user = User.query.filter(User.email == email).first()
+
         password = request.get_json()['password']
 
         if user.authenticate(password):
-            db.session['user_id'] = user.id
+            session['user_id'] = user.id
             return user.to_dict(), 200
-        
+
         return {'error': 'Invalid username or password'}, 401
 api.add_resource(Login, '/login', endpoint='login')
     
+class GetUser(Resource):
+    def get(self):
+        
+        user_id = session.get('user_id')
+        if user_id is None:
+            return {'error': 'User not logged in'}, 401
 
-# @app.route('/products')
-# def products():
+       
+        user = User.query.get(user_id)
 
-#     products = []
-#     for product in Product.query.all():
-#         product_dict = {
-#             "name": product.name,
-#             "description": product.description,
-#             "price": product.price,
-#             "image_url": product.image_url,
-#         }
-#         products.append(product_dict)
+        if user is None:
+            return {'error': 'User not found'}, 404
 
-#     response = make_response(
-#         jsonify(products),
-#         200,
-#         {"Content-Type": "application/json"}
-#     )
+        return user.to_dict(), 200
 
-#     return response
-
-
-# class Product(Resource):
-    
-#     def get(self):
-#         products = [product.to_dict() for product in Product.query.all()]
-#         return products, 200
-# api.add_resource(Product, '/products',endpoint='products')
-
+api.add_resource(GetUser, '/get_user', endpoint='get_user')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)

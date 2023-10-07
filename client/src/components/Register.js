@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom"
+
 
 function Register() {
+    const history = useHistory()
     const [formData, setFormData] = useState({
         username: '',
         email: '',
@@ -21,6 +24,7 @@ const handleRegister = async (formData) => {
 
         if(response.ok) {
             alert('Registration successful!')
+            history.push("/push")
         }
         else {
             const data = await response.json()

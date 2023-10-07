@@ -7,7 +7,6 @@ import ShoppingCart from "./ShoppingCart";
 import Login from "./Login";
 import Register from "./Register";
 import Profile from "./Profile";
-import Home from "./Home";
 
 
 function App() {
@@ -15,10 +14,29 @@ function App() {
   const [cart, setCart] = useState([])
   const [isOpen, setIsOpen] = useState(false)
   const [products, setProducts] = useState([])
+  const [user, setUser] = useState(null)
 
   const handleLogin = () => {
     setIsLoggedIn(true)
   }
+
+  useEffect(() => {
+    fetch('/get_user')
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then((data) => {
+      // Handle the user data
+      setUser(data);
+    })
+    .catch((error) => {
+      // Handle errors
+      console.error('Error:', error);
+    })
+  }, [])
 
   const handleLogout = () => {
     setIsLoggedIn(false)
@@ -36,37 +54,46 @@ function App() {
     })
 }, [])
 
-  return (
-    <Router>
-      <div className="App">
-        <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />
-        <Switch>
-          <Route path="/" exact>
-            <Home />
-          </Route>
-          <Route path="/products">
-            <Product openModal={openModal} isOpen={isOpen} product={products} />
-          </Route>
-          <Route path="/cart">
-            <ShoppingCart cartItems={cart} setCart={setCart} product={products} />
-          </Route>
-          <Route path="/login">
-            <Login handleLogin={handleLogin} />
-          </Route>
-          <Route path="/register">
-            <Register />
-          </Route>
+
+
+return (
+  <Router>
+    <div className="App">
+      {isLoggedIn && <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}
+      <Switch>
+        <Route path="/login">
+          {isLoggedIn ? <Redirect to="/products" /> : <Login handleLogin={handleLogin} />}
+        </Route>
+        <Route path="/products">
           {isLoggedIn ? (
-            <Route path="/profile" />,
-            <Profile />
-        ) : (
-            <Redirect to="/login" />,
-            <Login handleLogin={handleLogin} />
-        )}
-        </Switch>
-      </div>
-    </Router>
-  )
+            <Product openModal={openModal} isOpen={isOpen} product={products} />
+          ) : (
+            <Redirect to="/login" />
+          )}
+        </Route>
+        <Route path="/cart">
+          {isLoggedIn ? (
+            <ShoppingCart cartItems={cart} setCart={setCart} product={products} user={user} />
+          ) : (
+            <Redirect to="/login" />
+          )}
+        </Route>
+        <Route path="/profile">
+          {isLoggedIn ? (
+            <Profile user={user} />
+          ) : (
+            <Redirect to="/login" />
+          )}
+        </Route>
+        <Route path="/register">
+          {isLoggedIn ? <Redirect to="/products" /> : <Register handleLogin={handleLogin} />}
+        </Route>
+        <Redirect to="/login" />
+      </Switch>
+    </div>
+  </Router>
+);
 }
+
 
 export default App;
