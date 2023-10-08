@@ -86,24 +86,22 @@ def logout():
         return {}, 204
     return {"message": "unauthorized"}, 404
 
-@app.route('/products/<int:product_id>', methods=['GET'])
-def get_product(product_id):
-    product = Product.query.get(product_id)
-    if product:
-        return jsonify({
-            'id': product.id,
-            'name': product.name,
-            'price': product.price,
-            'description': product.description,
-        })
-    else:
-        return jsonify({'message': 'Product not found'}), 404
+@app.route('/get_user_products', methods=['GET'])
+def get_user_products():
+    if 'username' in session:
+        user_id = session['username']
+        user = User.query.get(user_id)
+        if user:
+            user_products = [product.to_dict() for product in user.products]  # Assuming there's a relationship between User and Product models
+            return jsonify(user_products), 200
+
+    return jsonify({'message': 'User not logged in or no products found'}), 401
 
 
 @app.route('/update_profile', methods=['PUT'])
 def update_profile():
     try:
-        user_id = request.json.get('user_id')
+        user_id = request.json.get('username')
         user = User.query.get(user_id)
 
         if user:
