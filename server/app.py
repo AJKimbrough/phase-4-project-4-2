@@ -8,6 +8,7 @@ from flask_restful import Resource
 from sqlalchemy import text
 
 
+
 # Local imports
 from config import app, db, api, bcrypt
 # Add your model imports
@@ -18,6 +19,8 @@ from models import Product, User, ShoppingCart, Order
 @app.route('/')
 def index():
     return '<h1>Project Server</h1>'
+
+
 
 @app.route('/products', methods=['GET'])
 def products():
@@ -72,9 +75,21 @@ class Login(Resource):
             return user.to_dict(), 200
 
         return {'error': 'Invalid username or password'}, 401
+    
+
 api.add_resource(Login, '/login', endpoint='login')
+
+class Logout(Resource):
+    def post(self):
+
+        session.clear()
+
+        return {'message': 'User logged out successfully'}, 200
+
+api.add_resource(Logout, '/logout')
     
 class GetUser(Resource):
+    
     def get(self):
         
         user_id = session.get('user_id')
@@ -90,6 +105,40 @@ class GetUser(Resource):
         return user.to_dict(), 200
 
 api.add_resource(GetUser, '/get_user', endpoint='get_user')
+
+@app.route('/products/<int:product_id>', methods=['GET'])
+def get_product(product_id):
+    product = Product.query.get(product_id)
+    if product:
+        return jsonify({
+            'id': product.id,
+            'name': product.name,
+            'price': product.price,
+            'description': product.description,
+        })
+    else:
+        return jsonify({'message': 'Product not found'}), 404
+
+
+@app.route('/update_profile', methods=['PUT'])
+def update_profile():
+    try:
+        user_id = request.json.get('user_id')
+        user = User.query.get(user_id)
+
+        if user:
+            user.username = request.json.get('username', user.username)
+            user.email = request.json.get('email', user.email)
+
+            db.session.commit()
+
+            return jsonify({'message': 'Profile updated successfully'}), 200
+        else:
+            return jsonify({'error': 'User not found'}), 404
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
