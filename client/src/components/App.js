@@ -15,28 +15,50 @@ function App() {
   const [isOpen, setIsOpen] = useState(false)
   const [products, setProducts] = useState([])
   const [user, setUser] = useState(null)
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  })
 
   const handleLogin = () => {
     setIsLoggedIn(true)
   }
 
-  useEffect(() => {
-    fetch('/get_user')
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
+const handleChange = (e) => {
+  const { name, value } = e.target
+    setFormData({
+        ...formData,
+        [name]: value,
     })
-    .then((data) => {
-      // Handle the user data
-      setUser(data);
-    })
-    .catch((error) => {
-      // Handle errors
-      console.error('Error:', error);
-    })
-  }, [])
+  }
+
+  const handleSubmit = async (e) => {
+        e.preventDefault()
+
+        try {
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            })
+
+            if(response.status === 200) {
+                const data = await response.json()
+                const token = data.token
+
+                handleLogin(token)
+                setUser(data)
+            }
+            else {
+                console.error('Login failed')
+            }
+        } 
+        catch(error){
+            console.error('Login error:', error)
+        }
+    }
 
   const handleLogout = () => {
     setIsLoggedIn(false)
@@ -54,33 +76,55 @@ function App() {
     })
 }, [])
 
+useEffect(() => {
+  fetch("/cart")
+    .then((response) => response.json())
+    .then((data) => {
+      setCart(data);
+    })
+    .catch((error) => {
+      console.error('Error fetching cart data:', error);
+    });
+}, []);
 
+const removeFromCart = async (id) => {
+  const config = {method: "DELETE"}
+  const response = await fetch(`/cart/${id}`, config)
+
+  const updatedCart = cart.filter((item) => item.id !== id);
+  setCart(updatedCart);
+
+}
+
+const addToCart = (item) => {
+  setCart([...cart, item]);
+};
 
 return (
   <Router>
     <div className="App">
-      {isLoggedIn && <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} />}
+      {isLoggedIn && <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} setUser={setUser} />}
       <Switch>
         <Route path="/login">
-          {isLoggedIn ? <Redirect to="/products" /> : <Login handleLogin={handleLogin} />}
+          {isLoggedIn ? <Redirect to="/products" /> : <Login handleLogin={handleLogin} handleSubmit={handleSubmit} handleChange={handleChange} formData={formData} />}
         </Route>
         <Route path="/products">
           {isLoggedIn ? (
-            <Product openModal={openModal} isOpen={isOpen} product={products} />
+            <Product openModal={openModal} isOpen={isOpen} products={products} addToCart={addToCart} />
           ) : (
             <Redirect to="/login" />
           )}
         </Route>
         <Route path="/cart">
           {isLoggedIn ? (
-            <ShoppingCart cartItems={cart} setCart={setCart} product={products} user={user} />
+            <ShoppingCart cart={cart} removeFromCart={removeFromCart} user={user} />
           ) : (
             <Redirect to="/login" />
           )}
         </Route>
         <Route path="/profile">
           {isLoggedIn ? (
-            <Profile user={user} />
+            <Profile user={user} name={user && user.username} email={user && user.email} />
           ) : (
             <Redirect to="/login" />
           )}

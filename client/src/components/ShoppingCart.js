@@ -1,53 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
 import Modal from "./Modal";
 
-function ShoppingCart({ cartItems, openModal, isLoggedIn, handleLogout, user }) {
-    const [cart, setCart] = useState(cartItems)
-    console.log(cartItems)
+function ShoppingCart({ cart, openModal, isLoggedIn, handleLogout, user, removeFromCart }) {
+    const handleRemoveFromCart = (id) => {
+        removeFromCart(id)
+      }
+    
+      const product = cart.map((product) => (
+        <div key={product.id}>
+          <img alt="product" src={product.image_url} width={250} height={250} key={product.image_url} />
+          <button onClick={() => handleRemoveFromCart(product.id)} className='remove button' type="submit">Remove from cart</button>
+          <button className="button" onClick={() => openModal(product)}>
+            {<Modal product={product} name={product.name} price={product.price} description={product.description} />}
+          </button>
+        </div>
+      ))
 
-    useEffect(() => {
-        fetch('/cart')
-        .then((r) => r.json())
-        .then((data) => {
-            setCart(data)
-        })
-    }, [])
-
-    const removeFromCart = async (id) => {
-        const config = {method: "DELETE"}
-        const response = await fetch(`/cart/${id}`, config)
-
-        const filteredCart = cart.filter(product => product.id !== id)
-    }
-
-    const product = cart.map((product) => (
-        <>
-            <img alt="product" src={product.image_url} width={250} height={250} key={product.image_url} />
-            <button key={product.name} onClick={() => removeFromCart(product.id)} className='remove button' type="submit">Remove from cart</button>
-            <button key={product.name} onClick={product.name} className="button">
-                {<Modal product={product} name={product.name} price={product.price} description={product.description} />}
-            </button>
-        </>
-    ))
-
-    console.log(isLoggedIn)
+  console.log(cart)
 
     return (
         <div className='cart'>
-            <h2>Cart</h2>
-            {product}
-            {/* <ul>
-                 /*{cartItems.map((item) => (
-                    <li key={item.id}>
-                        {item.name} - ${item.price} 
-                        <button onClick={() => removeFromCart(item.id)}>Remove</button>
-                    </li>
-                ))}
-            </ul> */}
-            {/*Display total price and checkout button */}
+          <h2>Cart</h2>
+          {product}
         </div>
-    )
-}
+      )
+    }
 
 export default ShoppingCart

@@ -17,7 +17,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db' #'postgresql://nft_ma
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
 
-app.config['SECRET_KEY'] = b'\x14\xc5\xd0\x02\xfe\xc0\x16m#\xbd\x07\xeb<\x17\xe6\xcc'
+app.secret_key = b'\x14\xc5\xd0\x02\xfe\xc0\x16m#\xbd\x07\xeb<\x17\xe6\xcc'
 
 
 # Define metadata, instantiate db

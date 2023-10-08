@@ -71,7 +71,7 @@ class Login(Resource):
         password = request.get_json()['password']
 
         if user.authenticate(password):
-            session['user_id'] = user.id
+            session['username'] = user.username
             return user.to_dict(), 200
 
         return {'error': 'Invalid username or password'}, 401
@@ -79,32 +79,12 @@ class Login(Resource):
 
 api.add_resource(Login, '/login', endpoint='login')
 
-class Logout(Resource):
-    def post(self):
-
+@app.route("/logout", methods =["DELETE"])
+def logout():
+    if session.get("username"):
         session.clear()
-
-        return {'message': 'User logged out successfully'}, 200
-
-api.add_resource(Logout, '/logout')
-    
-class GetUser(Resource):
-    
-    def get(self):
-        
-        user_id = session.get('user_id')
-        if user_id is None:
-            return {'error': 'User not logged in'}, 401
-
-       
-        user = User.query.get(user_id)
-
-        if user is None:
-            return {'error': 'User not found'}, 404
-
-        return user.to_dict(), 200
-
-api.add_resource(GetUser, '/get_user', endpoint='get_user')
+        return {}, 204
+    return {"message": "unauthorized"}, 404
 
 @app.route('/products/<int:product_id>', methods=['GET'])
 def get_product(product_id):

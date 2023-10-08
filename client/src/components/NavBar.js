@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 
 const linkStyle = {
     display: "inline-block",
@@ -12,6 +13,31 @@ const linkStyle = {
 }
 
 function NavBar({ isLoggedIn, handleLogout }){
+const handleLogoutClick = async () => {
+        try {
+            // Make a POST request to log the user out
+            const response = await fetch('/logout', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (response.ok) {
+                // Handle successful logout on the frontend (e.g., clearing user state)
+                handleLogout();
+                window.location.href ='/login';
+            } else {
+                // Handle logout failure, if needed
+                console.error('Logout failed');
+            }
+        } catch (error) {
+            console.error('Logout error:', error);
+        }
+    };
+
+
+
     return(
         <div className='navBar'>
             <NavLink
@@ -45,6 +71,13 @@ function NavBar({ isLoggedIn, handleLogout }){
             >
                 Profile Page
             </NavLink>
+            {isLoggedIn && (
+                <button
+                style={{...linkStyle, background:'red'}}
+                onClick={handleLogoutClick}>
+                    Logout
+                </button>
+            )}
         </div>
     )
 }

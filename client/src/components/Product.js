@@ -1,35 +1,26 @@
 import React, { useState } from 'react';
 import Modal from './Modal';
 
-function Product({ product, openModal }) {
-const [cart, setCart] = useState([])
+function Product({ products, openModal, addToCart }) {
 
-const addToCart = (item) => {
-    const inCart = cart.find((product) => product.name === item.name)
 
-    if (inCart) {
-        const updatedCart = cart.map((product) =>
-        product.name === item.name ? {
-            ...item,
-            quantity: item.quantity + 1
-        } : item
-        )
-        setCart(updatedCart)
-    }
-    else {
-        setCart([...cart, {...addToCart, quantity: 1}])
-    }
-}
+    const handleAddToCart = (homeProduct) => {
+        addToCart(homeProduct); 
+        const message = `${homeProduct.name} has been added to the cart.`;
+        alert(message); 
+      };
 
-const homeProducts = product.map((homeProducts) => (
-    <div key={homeProducts.name}>
-        <img alt="product img" src={homeProducts.image_url} width={250} height={250} key={homeProducts.image_url} />
-        <button onClick={openModal(homeProducts)} className="button">
-            {<Modal products={homeProducts} name={homeProducts.name} price={homeProducts.name} description={homeProducts.description} />}
-        </button>
-        <button onClick={() => addToCart(homeProducts)}>Add to Cart</button>
-    </div>
-))
+    const homeProducts = products.map((homeProduct) => (
+        <div key={homeProduct.id}>
+            <p>{homeProduct.name}</p>
+            <img alt="product img" src={homeProduct.image_url} width={250} height={250} />
+            <p>${homeProduct.price}</p>
+            <button onClick={() => openModal(homeProduct)}>
+                {<Modal products={homeProduct} name={homeProduct.name} price={homeProduct.price} description={homeProduct.description} />}
+            </button>
+            <button onClick={() => handleAddToCart(homeProduct)}>Add to Cart</button> 
+        </div>
+      ));
 
 console.log(homeProducts)
 
