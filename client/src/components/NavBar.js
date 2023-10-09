@@ -22,15 +22,15 @@ const handleLogoutClick = async () => {
 
             if (response.ok) {
                 handleLogout();
-                window.location.href ='/login';
+                window.location.href ='/login'
             } else {
 
-                console.error('Logout failed');
+                console.error('Logout failed')
             }
         } catch (error) {
-            console.error('Logout error:', error);
+            console.error('Logout error:', error)
         }
-    };
+    }
 
     return(
         <div className='navBar'>
@@ -38,9 +38,6 @@ const handleLogoutClick = async () => {
                 to="/products"
                 exact
                 style={linkStyle}
-                // activeStyle={{
-                //     background:"darkblue",
-                // }}
             >
                 NFTs for sale
             </NavLink>
@@ -48,9 +45,6 @@ const handleLogoutClick = async () => {
                 to="/cart"
                 exact
                 style={linkStyle}
-                // activeStyle={{
-                //     background:"darkblue",
-                // }}
             >
                 Shopping Cart
             </NavLink>
@@ -59,9 +53,6 @@ const handleLogoutClick = async () => {
                 to="/profile"
                 exact
                 style={linkStyle}
-                // activeStyle={{
-                //     background:"darkblue",
-                // }}
             >
                 Profile Page
             </NavLink>
@@ -77,6 +68,5 @@ const handleLogoutClick = async () => {
         </div>
     )
 }
-
 
 export default NavBar

@@ -115,7 +115,7 @@ function Profile({ user, name, email, wallet }) {
       )}
         </div>
     </>
-      );
+      )
 }
 
 export default Profile
