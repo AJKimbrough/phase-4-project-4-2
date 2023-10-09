@@ -8,7 +8,6 @@ import Login from "./Login";
 import Register from "./Register";
 import Profile from "./Profile";
 
-
 function App() {
   const [wallet, setWallet] = useState([])
   const [isLoggedIn, setIsLoggedIn] = useState(false)
@@ -94,7 +93,6 @@ const addToWallet = (item) => {
   setWallet([...wallet, item])
 }
 
-
 return (
   <Router>
     <div className="App">
@@ -131,7 +129,7 @@ return (
       </Switch>
     </div>
   </Router>
-);
+)
 }
 
 
