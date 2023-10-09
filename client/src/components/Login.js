@@ -4,10 +4,12 @@ import { Link } from "react-router-dom"
 function Login({ handleSubmit, handleChange, formData}) {
 
     return (
-        <div className="login">
+        <>
+        
+        <div className="login-box">
             <h2>Login</h2>
             <form onSubmit={handleSubmit}>
-                <div>
+                <div className="user-box">
                     <label>Email:</label>
                     <input
                         type="email"
@@ -17,7 +19,7 @@ function Login({ handleSubmit, handleChange, formData}) {
                         required
                     />
                 </div>
-                <div>
+                <div className="user-box">
                     <label>Password:</label>
                     <input
                     type="password"
@@ -30,7 +32,8 @@ function Login({ handleSubmit, handleChange, formData}) {
                 </div>
                 <button type="submit">Login</button>
             </form>
-        </div>
+            </div>
+        </>
     )
 }
 
