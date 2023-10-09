@@ -57,6 +57,7 @@ const handleSubmit = (e) => {
 }
 
     return(
+        <>
         <div>
             <h2 style={registerStyle}>Register</h2>
             <form onSubmit={handleSubmit}>
@@ -103,6 +104,7 @@ const handleSubmit = (e) => {
                 <button type="submit">Register</button>
             </form>
         </div>
+        </>
     )
 }
 
