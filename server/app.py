@@ -86,7 +86,7 @@ def logout():
         return {}, 204
     return {"message": "unauthorized"}, 404
 
-@app.route('/update_profile', methods=['PUT'])
+@app.route('/profile', methods=['PUT'])
 def update_profile():
     try:
         user_id = request.json.get('username')
