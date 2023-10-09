@@ -60,10 +60,10 @@ const handleSubmit = (e) => {
         <>
         <div className="overlay"></div>
         <div className="registration-modal">
-            <h2 style={registerStyle}>Register</h2>
+            <h2>Register</h2>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label style={registerStyle}>Username:</label>
+                    <label>Username:</label>
                     <input
                         type="text"
                         name="username"
@@ -73,7 +73,7 @@ const handleSubmit = (e) => {
                     />
                 </div>
                 <div>
-                    <label style={registerStyle}>Email:</label>
+                    <label>Email:</label>
                     <input 
                         type="email"
                         name="email"
@@ -83,7 +83,7 @@ const handleSubmit = (e) => {
                     />
                 </div>
                 <div>
-                    <label style={registerStyle}>Password:</label>
+                    <label>Password:</label>
                     <input
                         type="password"
                         name="password"
@@ -93,7 +93,7 @@ const handleSubmit = (e) => {
                     />
                 </div>
                 <div>
-                    <label style={registerStyle}>Confirm Password:</label>
+                    <label>Confirm Password:</label>
                     <input
                         type="password"
                         name="confirmPassword"
