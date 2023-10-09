@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom"
 
+const loginStyle ={
+    color: "white",
+}
+
 function Login({ handleSubmit, handleChange, formData}) {
 
     return (
@@ -28,7 +32,7 @@ function Login({ handleSubmit, handleChange, formData}) {
                     onChange={handleChange}
                     required
                 />
-                <p>Discover a better currency! <Link to="/register">Step into the future.</Link></p>
+                <p style={loginStyle}>Discover a better currency! <Link to="/register">Step into the future.</Link></p>
                 </div>
                 <button type="submit">Login</button>
             </form>
