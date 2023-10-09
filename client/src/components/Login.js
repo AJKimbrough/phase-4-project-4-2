@@ -6,10 +6,8 @@ const loginStyle ={
 }
 
 function Login({ handleSubmit, handleChange, formData}) {
-
     return (
         <>
-        
         <div className="login-box">
             <h2>Login</h2>
             <form onSubmit={handleSubmit}>
