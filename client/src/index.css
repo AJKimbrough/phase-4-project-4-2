@@ -266,3 +266,54 @@ body {
     bottom: 100%;
   }
 }
+
+/* CSS for the registration modal */
+.registration-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000; /* Ensure it's above other content */
+  width: 300px; /* Adjust the width as needed */
+}
+
+.registration-modal h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.registration-modal form {
+  display: flex;
+  flex-direction: column;
+}
+
+.registration-modal div {
+  margin-bottom: 10px;
+}
+
+.registration-modal label {
+  margin-bottom: 5px;
+}
+
+.registration-modal input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.registration-modal button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.registration-modal button:hover {
+  background-color: #0056b3;
+}
