@@ -59,7 +59,7 @@ const handleSubmit = (e) => {
     return(
         <>
         <div className="overlay"></div>
-        <div>
+        <div className="registration-modal">
             <h2 style={registerStyle}>Register</h2>
             <form onSubmit={handleSubmit}>
                 <div>
