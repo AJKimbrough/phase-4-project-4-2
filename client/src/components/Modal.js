@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-
 const Modal = ({name, price, description}) => {
     const [isOpen, setIsOpen] = useState(false)
 
@@ -29,7 +28,6 @@ const Modal = ({name, price, description}) => {
             )}
         </div>
     )
-
 }
 
 export default Modal
