@@ -1,3 +1,16 @@
+Welcome to AJ's NFT Marketplace!
+
+This web application is designed to introduce you to the world of NFT trading. This marketplace displays the top NFTs on market and allows you to explore them. Each NFT modal displays the name, current price and a brief description of the collection. You;ll have the option to add tokens you are interested in to your cart and then if you decide that you want to purchase the token you can do so. The profile page allows you to interact with your account. Whether you need to edit the information associated with it or just want to view the NFTs you have purchased via your wallet. Enjoy the marketplace and buy some NFTs.
+
+To get started you'll need to fork and clone this repository. After you open it on your local machine you'll need to run pipenv install and pipenv shell to get all the dependencies to load and to enter the shell. Next you'll need to run cd server, initialize the database, run python seed.py to load the initial NFTs into the db and finnally run python app.py to run the server. Next you'll need to open another terminal and run npm start --prefix client to get the react app to run. Just create an account and now you're ready to go!
+
+
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
