@@ -1,15 +1,11 @@
 import React, { useState, useEffect } from "react";
 
 const profileStyle ={
-    
     background: "lightblue",
-    
 }
 
-
 function Profile({ user, name, email, wallet }) {
-    console.log(user)
-    console.log(wallet)
+
     const [formData, setFormData ] = useState({
         username: '',
         email: '',
@@ -25,7 +21,7 @@ function Profile({ user, name, email, wallet }) {
 
     const updateUser = async (updatedData) => {
         try {
-          const response = await fetch('/update_profile', {
+          const response = await fetch('/profile', {
             method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
@@ -120,6 +116,6 @@ function Profile({ user, name, email, wallet }) {
         </div>
     </>
       );
-    }
+}
 
 export default Profile
