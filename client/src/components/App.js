@@ -10,6 +10,7 @@ import Profile from "./Profile";
 
 
 function App() {
+  const [wallet, setWallet] = useState([])
   const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [cart, setCart] = useState([])
   const [isOpen, setIsOpen] = useState(false)
@@ -76,17 +77,6 @@ const handleChange = (e) => {
     })
 }, [])
 
-useEffect(() => {
-  fetch("/cart")
-    .then((response) => response.json())
-    .then((data) => {
-      setCart(data);
-    })
-    .catch((error) => {
-      console.error('Error fetching cart data:', error);
-    });
-}, []);
-
 const removeFromCart = async (id) => {
   const config = {method: "DELETE"}
   const response = await fetch(`/cart/${id}`, config)
@@ -100,10 +90,15 @@ const addToCart = (item) => {
   setCart([...cart, item]);
 };
 
+const addToWallet = (item) => {
+  setWallet([...wallet, item])
+}
+
+
 return (
   <Router>
     <div className="App">
-      {isLoggedIn && <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} setUser={setUser} />}
+      {isLoggedIn && <NavBar isLoggedIn={isLoggedIn} handleLogout={handleLogout} user={user} />}
       <Switch>
         <Route path="/login">
           {isLoggedIn ? <Redirect to="/products" /> : <Login handleLogin={handleLogin} handleSubmit={handleSubmit} handleChange={handleChange} formData={formData} />}
@@ -117,14 +112,14 @@ return (
         </Route>
         <Route path="/cart">
           {isLoggedIn ? (
-            <ShoppingCart cart={cart} removeFromCart={removeFromCart} user={user} />
+            <ShoppingCart cart={cart} removeFromCart={removeFromCart} addToWallet={addToWallet}  />
           ) : (
             <Redirect to="/login" />
           )}
         </Route>
         <Route path="/profile">
           {isLoggedIn ? (
-            <Profile user={user} name={user && user.username} email={user && user.email} />
+            <Profile user={user} name={user && user.username} email={user && user.email} wallet={wallet} />
           ) : (
             <Redirect to="/login" />
           )}

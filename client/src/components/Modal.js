@@ -18,11 +18,11 @@ const Modal = ({name, price, description}) => {
             {isOpen && (
                 <div className="modal">
                     <div className="modal-content">
-                    <span className="close" onClick={closeModal}>
-                        &times;
-                    </span>
+                    <button className="close-button" onClick={closeModal} style={{background:"lightblue"}} >
+                        <span>X</span>
+                    </button>
                     <h2>{name}</h2>
-                    <p>{price}</p>
+                    <p>${price}</p>
                     <p>{description}</p>
                 </div>
             </div>

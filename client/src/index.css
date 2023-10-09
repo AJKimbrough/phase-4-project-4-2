@@ -5,12 +5,8 @@
   --text: hsla(0, 0%, 100%, 0.88);
 }
 
-/* body {
+body {
   background-color: black;
-}
-
-.best, .home-container, .Nft-form, .myNFT, .button {
-  background-color: gray;
 }
 
 .modal {
@@ -38,5 +34,68 @@
   top: 10px;
   right: 10px;
   cursor: pointer;
-} */
+}
+
+.navBar {
+  background-color: black;
+}
+
+.logoutButton {
+  float: right;
+}
+
+.userWelcome {
+  text-align: center;
+  color: white;
+}
+
+.product {
+  background-color: lightblue;
+}
+
+.product {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; 
+  margin: 0 auto; 
+  max-width: 1200px; 
+}
+
+
+body {
+  background-color: lightblue;
+}
+
+.image-container {
+  position: relative; /* set container to a relative position */
+  width: 250px; /* set your desired width */
+  height: 250px; /* set your desired height */
+  padding-top: 25px;
+  padding-bottom: 40px;
+}
+
+.remove-button {
+  position: absolute; /* set button to an absolute position */
+  top: 50%; /* adjust the top position of the button */
+  left: 50%; /* adjust the left position of the button */
+  transform: translate(-50%, -50%); /* center the button */
+  cursor: pointer;
+ /* change mouse cursor on hover */
+}
+
+.button-container {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.purchase-button {
+  color: black;
+  /* width: 75px;
+  height: 75px; */
+  top: 50%;
+  bottom: 50%;
+}
 

@@ -1,14 +1,28 @@
 import React, { useState, useEffect } from "react";
+import ShoppingCart from "./ShoppingCart";
 
-
-function Profile({ user, name, email }) {
-    console.log(user)
+const profileStyle ={
     
-    const [orders, setOrders] = useState([]);
+    background: "lightblue",
+    
+}
+
+
+function Profile({ user, name, email, wallet }) {
+    console.log(user)
+    console.log(wallet)
     const [formData, setFormData ] = useState({
         username: '',
         email: '',
     })
+
+    const handleChange = (e) => {
+        const { name, value } = e.target
+        setFormData({
+            ...formData,
+            [name]: value,
+        })
+    }
 
     const updateUser = async (updatedData) => {
         try {
@@ -31,40 +45,8 @@ function Profile({ user, name, email }) {
           console.error('Profile update error:', error)
         }
       }
-
-      const fetchUserOrders = async () => {
-        try {
-          const response = await fetch('/get_user_orders')
-          if (response.ok) {
-            const data = await response.json()
-            setOrders(data);
-          } 
-          else {
-          }
-        } 
-        catch (error) {
-          console.error('Error fetching user orders:', error)
-        }
-      }
-
-      useEffect(() => {
-        fetchUserOrders()
-      }, [])
-      
-      const orderHistory = orders.map((order) => (
-        <div key={order.id}>
-        </div>
-      ))
       
     const [isEditing, setisEditing] = useState(false)
-
-    const handleChange = (e) => {
-        const { name, value } = e.target
-        setFormData({
-            ...formData,
-            [name]: value,
-        })
-    }
 
     const handleEdit = () => {
         setisEditing(true)
@@ -77,7 +59,8 @@ function Profile({ user, name, email }) {
     }
 
     return (
-        <div>
+        <>
+        <div className="profile" style={profileStyle}>
           <h2>Profile</h2>
           {isEditing ? (
             <div>
@@ -114,28 +97,29 @@ function Profile({ user, name, email }) {
               <button onClick={handleEdit}>Edit Profile</button>
             </div>
           )}
-          <h3>Order History</h3>
-          {orders.length === 0 ? (
-            <p>No orders available.</p>
-          ) : (
-            <div>
-              {orders.map((order) => (
-                <div key={order.id}>
-                  <p>
-                    <strong>Order Date:</strong> {order.orderDate}
-                  </p>
-                  <p>
-                    <strong>Items:</strong>
-                  </p>
-                  <p>
-                    <strong>Total Price:</strong> ${order.totalPrice}
-                  </p>
-                  <hr />
-                </div>
-              ))}
+          <h3>NFT Wallet</h3>
+          {wallet.length === 0 ? (
+        <p>You haven't purchased any NFTs yet!</p>
+      ) : (
+        <div>
+          {wallet.map((product, index) => (
+            <div key={index}>
+              <p>
+                <strong>Name:</strong> {product.name}
+              </p>
+              <p>
+                <strong>Price:</strong> ${product.price}
+              </p>
+              <p>
+                <strong>Description:</strong> {product.description}
+              </p>
+              <hr />
             </div>
-          )}
+          ))}
         </div>
+      )}
+        </div>
+    </>
       );
     }
 

@@ -1,16 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom"
 
-function Login({ handleLogin, handleSubmit, handleChange, formData}) {
-    
-
-    
-    
-    
-
+function Login({ handleSubmit, handleChange, formData}) {
 
     return (
-        <div>
+        <div className="login">
             <h2>Login</h2>
             <form onSubmit={handleSubmit}>
                 <div>
