@@ -19,7 +19,6 @@ from models import db, Product, User, ShoppingCart, Order
 #         print("Starting seed...")
 #         # Seed code goes here!
 
-# Initialize Faker
 fake = Faker()
 
 

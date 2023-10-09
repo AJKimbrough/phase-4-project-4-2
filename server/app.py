@@ -16,10 +16,9 @@ from models import Product, User, ShoppingCart, Order
 
 # Views go here!
 
-@app.route('/')
-def index():
-    return '<h1>Project Server</h1>'
-
+# @app.route('/')
+# def index():
+#     return '<h1>Project Server</h1>'
 
 
 @app.route('/products', methods=['GET'])
@@ -60,7 +59,6 @@ class Register(Resource):
     
 api.add_resource(Register, '/register', endpoint="")
 
-
 class Login(Resource):
 
     def post(self):
@@ -76,7 +74,6 @@ class Login(Resource):
 
         return {'error': 'Invalid username or password'}, 401
     
-
 api.add_resource(Login, '/login', endpoint='login')
 
 @app.route("/logout", methods =["DELETE"])

@@ -51,7 +51,6 @@ class User(db.Model, SerializerMixin):
 
     @password_hash.setter
     def password_hash(self, password):
-        # utf-8 encoding and decoding is required in python 3
         password_hash = bcrypt.generate_password_hash(
             password.encode('utf-8'))
         self._password_hash = password_hash.decode('utf-8')
@@ -59,28 +58,6 @@ class User(db.Model, SerializerMixin):
     def authenticate(self, password):
         return bcrypt.check_password_hash(
             self._password_hash, password.encode('utf-8'))
-
-    # @hybrid_property
-    # def password_hash(self):
-    #     if not self._password_hash:
-    #        raise Exception('Password hahsed may not be viewed.')
-    #     return self._password_hash
-    
-    # @password_hash.setter
-    # def password_hash(self, password):
-    #     password_hash = bcrypt.generate_password_hash(
-    #         password.encode('utf-8'))
-    #     self._password_hash = password_hash.decode('utf-8')
-
-    # def authenticate(self, password):
-    #     return bcrypt.check_password_hash(
-    #         self._password_hash, password.encode('utf-8'))
-    
-
-    # def __init__(self, username, email, password):
-    #     self.username = username
-    #     self.email = email
-    #     self.password = password
 
 cart_product_association = db.Table(
     'cart_product_association',
