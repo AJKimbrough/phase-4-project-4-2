@@ -14,17 +14,16 @@ function Login({ handleSubmit, handleChange, formData}) {
             <h2>Login</h2>
             <form onSubmit={handleSubmit}>
                 <div className="user-box">
-                    <label>Email:</label>
-                    <input
+                <input
                         type="email"
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
                         required
                     />
+                    <label>Email:</label>
                 </div>
                 <div className="user-box">
-                    <label>Password:</label>
                     <input
                     type="password"
                     name="password"
@@ -32,6 +31,7 @@ function Login({ handleSubmit, handleChange, formData}) {
                     onChange={handleChange}
                     required
                 />
+                <label>Password:</label>
                 <p style={loginStyle}>Discover a better currency! <Link to="/register">Step into the future.</Link></p>
                 </div>
                 <button type="submit">Login</button>
