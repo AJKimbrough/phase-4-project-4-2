@@ -1,18 +1,14 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom"
 
-const registerStyle = {
-    color: "white"
-}
-
 function Register() {
-    const history = useHistory()
-    const [formData, setFormData] = useState({
-        username: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-    })
+const history = useHistory()
+const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+})
 
 const handleRegister = async (formData) => {
     try {
