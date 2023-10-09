@@ -58,6 +58,7 @@ const handleSubmit = (e) => {
 
     return(
         <>
+        <div className="overlay"></div>
         <div>
             <h2 style={registerStyle}>Register</h2>
             <form onSubmit={handleSubmit}>
