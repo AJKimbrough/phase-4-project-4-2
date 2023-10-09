@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom"
 
+const registerStyle = {
+    color: "white"
+}
 
 function Register() {
     const history = useHistory()
@@ -55,10 +58,10 @@ const handleSubmit = (e) => {
 
     return(
         <div>
-            <h2>Register</h2>
+            <h2 style={registerStyle}>Register</h2>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <label>Username:</label>
+                    <label style={registerStyle}>Username:</label>
                     <input
                         type="text"
                         name="username"
@@ -68,7 +71,7 @@ const handleSubmit = (e) => {
                     />
                 </div>
                 <div>
-                    <label>Email:</label>
+                    <label style={registerStyle}>Email:</label>
                     <input 
                         type="email"
                         name="email"
@@ -78,7 +81,7 @@ const handleSubmit = (e) => {
                     />
                 </div>
                 <div>
-                    <label>Password:</label>
+                    <label style={registerStyle}>Password:</label>
                     <input
                         type="password"
                         name="password"
@@ -88,7 +91,7 @@ const handleSubmit = (e) => {
                     />
                 </div>
                 <div>
-                    <label>Confirm Password:</label>
+                    <label style={registerStyle}>Confirm Password:</label>
                     <input
                         type="password"
                         name="confirmPassword"
