@@ -15,6 +15,7 @@ import os
 # Instantiate app, set attributes
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
+#'sqlite:///app.db' #'postgresql://nft_marketplace_963o_user:3Vcv03YVzDLCGXUiUBe9k4coZm8RyswJ@dpg-ckfhid7s0fgc73cn2gq0-a.oregon-postgres.render.com/nft_marketplace_963o'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
 
