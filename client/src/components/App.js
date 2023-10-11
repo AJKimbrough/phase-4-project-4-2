@@ -78,7 +78,7 @@ const handleChange = (e) => {
 
 const removeFromCart = async (id) => {
   const config = {method: "DELETE"}
-  const response = await fetch(`/cart/${id}`, config)
+  await fetch(`/cart/${id}`, config)
 
   const updatedCart = cart.filter((item) => item.id !== id);
   setCart(updatedCart);
