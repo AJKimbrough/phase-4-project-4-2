@@ -8,7 +8,7 @@ from sqlalchemy import func
 from faker import Faker
 
 # Local imports
-
+from app import app
 from models import db, Product, User, ShoppingCart, Order
 
 

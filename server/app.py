@@ -6,7 +6,7 @@
 from flask import request, jsonify, make_response, session
 from flask_restful import Resource
 from sqlalchemy import text
-from seed import create_products
+
 
 
 # Local imports
@@ -20,18 +20,7 @@ from models import Product, User, ShoppingCart, Order
 # def index():
 #     return '<h1>Project Server</h1>'
 
-@app.route('/seed-data', methods=['POST'])
-def seed_data():
-    
-    p = Product(
-        
-                name = 'CryptoPunks',
-				description = 'CryptoPunks launched as a fixed set of 10,000 items in mid-2017 and became one of the inspirations for the ERC-721 standard. They have been featured in places like The New York Times, Christie’s of London, Art|Basel Miami, and The PBS NewsHour.',
-				price= '1762.23',
-				image_url= 'https://i.seadn.io/gcs/files/f3564ef33373939b024fb791f21ec37b.png?auto=format&w=750'
-    )
-    db.session.add(p)
-    db.session.commit()
+
 
 
 @app.route('/products', methods=['GET'])
