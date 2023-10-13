@@ -22,40 +22,15 @@ from models import Product, User, ShoppingCart, Order
 
 @app.route('/seed-data', methods=['POST'])
 def seed_data():
-    products = [
-			{
-				'name': 'CryptoPunks',
-				'description': 'CryptoPunks launched as a fixed set of 10,000 items in mid-2017 and became one of the inspirations for the ERC-721 standard. They have been featured in places like The New York Times, Christie’s of London, Art|Basel Miami, and The PBS NewsHour.',
-				'price': '1762.23',
-				'image_url': 'https://i.seadn.io/gcs/files/f3564ef33373939b024fb791f21ec37b.png?auto=format&w=750'
-            },
-            {
-				'name':'Bored Ape Yacht Club',
-				'description':'The Bored Ape Yacht Club is a collection of 10,000 unique Bored Ape NFTs— unique digital collectibles living on the Ethereum blockchain. Your Bored Ape doubles as your Yacht Club membership card, and grants access to members-only benefits, the first of which is access to THE BATHROOM, a collaborative graffiti board. Future areas and perks can be unlocked by the community through roadmap activation.',
-				'price':'1762.23',
-				'image_url': 'https://ik.imagekit.io/bayc/assets/ape3.png'
-            },
-            {
-				'name':'Mutant Ape Yacht Club',
-				'description':'The MUTANT APE YACHT CLUB is a collection of up to 20,000 Mutant Apes that can only be created by exposing an existing Bored Ape to a vial of MUTANT SERUM or by minting a Mutant Ape in the public sale.',
-				'price':'1762.23',
-				'image_url': 'https://i.seadn.io/gcs/files/0a3759a0c9456a60dda2c18bae4b6fbd.png?auto=format&w=750'
-            },
-            {
-				'name':'Azuki',
-				'description':'Azuki starts with a collection of 10,000 avatars that give you membership access to The Garden: a corner of the internet where artists, builders, and web3 enthusiasts meet to create a decentralized future. Azuki holders receive access to exclusive drops, experiences, and more. We rise together. We build together. We grow together.',
-				'price':'1760.79',
-				'image_url': 'https://i.seadn.io/gcs/files/fef02bf7825bbd538f89d0cb7690b25e.png?auto=format&w=750'
-            },
-    ]
-    for product in products:
-            product = Product(
-                name=product['name'],
-                description=product['description'],
-                price=product['price'],
-                image_url=product['image_url']
-            )
-            db.session.add(product)
+    
+    p = Product(
+        
+                name = 'CryptoPunks',
+				description = 'CryptoPunks launched as a fixed set of 10,000 items in mid-2017 and became one of the inspirations for the ERC-721 standard. They have been featured in places like The New York Times, Christie’s of London, Art|Basel Miami, and The PBS NewsHour.',
+				price= '1762.23',
+				image_url= 'https://i.seadn.io/gcs/files/f3564ef33373939b024fb791f21ec37b.png?auto=format&w=750'
+    )
+    db.session.add(p)
     db.session.commit()
 
 
