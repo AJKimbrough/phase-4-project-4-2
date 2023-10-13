@@ -6,7 +6,7 @@
 from flask import request, jsonify, make_response, session
 from flask_restful import Resource
 from sqlalchemy import text
-
+from seed import create_products
 
 
 # Local imports
@@ -19,6 +19,10 @@ from models import Product, User, ShoppingCart, Order
 # @app.route('/')
 # def index():
 #     return '<h1>Project Server</h1>'
+
+@app.route('/seed-data', methods=['POST'])
+def seed_data():
+    create_products()
 
 
 @app.route('/products', methods=['GET'])
