@@ -10,7 +10,7 @@ from sqlalchemy import text
 
 
 # Local imports
-from config import app, db, api, bcrypt
+from config import app, db, api
 # Add your model imports
 from models import Product, User, ShoppingCart, Order
 
